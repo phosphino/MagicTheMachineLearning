@@ -1,0 +1,138 @@
+4 Sharktocrab (RNA) 206
+11 Forest (RIX) 196
+11 Island (RIX) 193
+2 Skyrider Patrol (M19) 224
+2 Frilled Mystic (RNA) 174
+2 Tatyova, Benthic Druid (DAR) 206
+2 Hadana's Climb (RIX) 158
+1 The Mending of Dominaria (DAR) 173
+1 Path of Discovery (RIX) 142
+4 Hydroid Krasis (RNA) 183
+1 Hinterland Harbor (DAR) 240
+1 Breeding Pool (RNA) 246
+2 Growth-Chamber Guardian (RNA) 128
+2 Sauroform Hybrid (RNA) 140
+2 Chemister's Insight (GRN) 32
+2 Essence Capture (RNA) 37
+2 Blink of an Eye (DAR) 46
+2 Arbor Armament (DAR) 155
+2 Verdant Rebirth (XLN) 212
+2 Thoughtbound Phantasm (GRN) 55
+1 Combine Guildmage (RNA) 163
+1 Vivien Reid (M19) 208
+
+4 Priest of Forgotten Gods (RNA) 83
+3 Plains (RIX) 192
+4 Sergeant-at-Arms (DAR) 32
+6 Island (RIX) 193
+2 History of Benalia (DAR) 21
+4 Murmuring Mystic (GRN) 45
+6 Swamp (RIX) 194
+2 Rite of Belzenlok (DAR) 102
+2 Depose // Deploy (RNA) 225
+4 Fungal Infection (DAR) 94
+2 Absorb (RNA) 151
+2 Glacial Fortress (XLN) 255
+3 Isolated Chapel (DAR) 241
+1 Drowned Catacomb (XLN) 253
+1 Watery Grave (GRN) 259
+1 Godless Shrine (RNA) 248
+1 Hallowed Fountain (RNA) 251
+2 Search for Azcanta (XLN) 74
+1 Precognitive Perception (RNA) 45
+2 Vraska's Contempt (XLN) 129
+1 Confront the Assault (ANA) 3
+4 Cast Down (DAR) 81
+2 Arrester's Admonition (RNA) 31
+
+2 Swiftblade Vindicator (GRN) 203
+12 Plains (RIX) 192
+9 Mountain (RIX) 195
+1 Huatli, Warrior Poet (XLN) 224
+1 Truefire Captain (GRN) 209
+1 Justice Strike (GRN) 182
+1 Response // Resurgence (GRN) 229
+1 Sacred Foundry (GRN) 254
+2 Clifftop Retreat (DAR) 239
+2 Fresh-Faced Recruit (GRN) 216
+2 Skyknight Legionnaire (GRN) 198
+2 Arrester's Zeal (RNA) 4
+2 Charge (DAR) 10
+2 Healer's Hawk (GRN) 14
+1 Dawn of Hope (GRN) 8
+1 Legion's Landing (XLN) 22
+2 History of Benalia (DAR) 21
+2 Mirror March (RNA) 108
+2 Light Up the Stage (RNA) 107
+1 Unbreakable Formation (RNA) 29
+2 Settle the Wreckage (XLN) 34
+3 Lightning Strike (XLN) 149
+1 Hero of Precinct One (RNA) 11
+1 Bounty Agent (GRN) 2
+1 Paladin of Atonement (RIX) 16
+1 Benalish Marshal (DAR) 6
+2 Inspiring Commander (ANA) 5
+
+4 Grasping Scoundrel (RIX) 74
+4 Fanatical Firebrand (RIX) 101
+2 Dire Fleet Daredevil (RIX) 99
+4 Dire Fleet Captain (XLN) 221
+4 Rix Maadi Reveler (RNA) 109
+2 Ruin Raider (XLN) 118
+4 Skewer the Critics (RNA) 115
+4 Lightning Strike (XLN) 149
+3 The Flame of Keld (DAR) 123
+4 Unclaimed Territory (XLN) 258
+4 Dragonskull Summit (XLN) 252
+4 Blood Crypt (RNA) 245
+4 Swamp (XLN) 268
+6 Mountain (XLN) 272
+4 Daring Buccaneer (RIX) 98
+3 Judith, the Scourge Diva (RNA) 185
+
+4 Benthic Biomancer (RNA) 32
+4 Deeproot Elite (RIX) 127
+4 Jade Bearer (RIX) 134
+4 Kumena's Speaker (XLN) 196
+4 Kumena, Tyrant of Orazca (RIX) 162
+4 Merfolk Mistbinder (RIX) 164
+2 Merfolk Trickster (DAR) 56
+4 Silvergill Adept (RIX) 53
+4 Incubation // Incongruity (RNA) 226
+4 Deeproot Waters (XLN) 51
+4 Breeding Pool (RNA) 246
+5 Forest (GRN) 264
+4 Hinterland Harbor (DAR) 240
+5 Island (GRN) 261
+4 Unclaimed Territory (XLN) 258
+
+3 Opt (XLN) 65
+4 Shock (M19) 156
+3 Enigma Drake (M19) 216
+1 Banefire (M19) 130
+3 Niv-Mizzet, Parun (GRN) 192
+4 Ionize (GRN) 179
+7 Mountain (XLN) 274
+9 Island (XLN) 266
+4 Sulfur Falls (DAR) 247
+4 Steam Vents (GRN) 257
+2 Search for Azcanta (XLN) 74
+3 Fiery Cannonade (XLN) 143
+3 Lava Coil (GRN) 108
+2 Dive Down (XLN) 53
+3 Essence Scatter (M19) 54
+2 Chemister's Insight (GRN) 32
+3 Chart a Course (XLN) 48
+
+4 Ajani's Pridemate (M19) 5
+4 Benalish Marshal (DAR) 6
+3 Conclave Tribunal (GRN) 6
+4 Dauntless Bodyguard (DAR) 14
+4 Healer's Hawk (GRN) 14
+4 History of Benalia (DAR) 21
+4 Legion's Landing (XLN) 22
+4 Leonin Vanguard (M19) 22
+19 Plains (XLN) 263
+4 Tithe Taker (RNA) 27
+2 Unbreakable Formation (RNA) 29
+4 Venerated Loxodon (GRN) 30
