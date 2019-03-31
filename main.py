@@ -17,4 +17,3 @@ complete_collection_noLands = collection.Remove_Lands(complete_collection)
 a = Fitness(complete_collection_noLands)
 Deck(GA_ready_collection)
 
-#
