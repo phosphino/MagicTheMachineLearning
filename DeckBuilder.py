@@ -5,19 +5,23 @@ import random, re
 import numpy as np
 import matplotlib.pyplot as plt
 
+'''
+https://towardsdatascience.com/evolution-of-a-salesman-a-complete-genetic-algorithm-tutorial-for-python-6fe5d2b3ca35
+^repurposed this to implement genetic algorithm in python for mtg arena deckbuilder
+'''
+
+
 class Deck:
     def __init__(self, collection, n=36, make_deck=True):
         self._decklist = None
         if make_deck:
             self._decklist = self.create_newdeck(n, collection)
-        print(self.get_colors(self._decklist))
-
 
 
 
     def create_newdeck(self, n, collection):
         decklist = None
-        #Check for duplicates which exceed collection quantity
+        #Check for duplicates which exceed collection quantity or 4.
         sentinal = True
         while sentinal:
             decklist = collection.sample(n=n, replace=True, weights=collection['quantity'], axis=0)
@@ -35,11 +39,12 @@ class Deck:
                 numberused = card.shape[0]
                 if numberused > min(card.quantity.iloc[0], 4):
                     sentinal=True
-        return decklist
+        return decklist.reset_index(drop=True)
 
     def get_colors(self, decklist):
         colors = {'colorless': 0, 'B': 0, 'R': 0, 'W': 0, 'U': 0, 'G': 0}
         for card in decklist['color_identity'].items():
+            #card is tuple (index, color list)
             card = card[1]
             for c in card:
                 colors[c] += 1
@@ -61,6 +66,47 @@ class Fitness:
         training_decks = self.import_decks(collection)
         self._cardtable = self.build_card_table(training_decks)
 
+    def score_deck(self, deck):
+        return self.neighbor_score(deck) + self.color_score(deck)
+
+
+    def neighbor_score(self, deck):
+        #To score card A, want to score it based on cards [B-Z]. How well does it synergize with its neighbors?
+        decklist = deck.get_decklist()
+        card_list=set(decklist['card_name'].values.tolist())
+        deck_score = []
+        for index, row in decklist.iterrows():
+            card_to_score = row['card_name']
+            card_score = []
+            for card in card_list:
+                #check how many of neighborcard are in the deck
+                neighbor_card_quantity = decklist[decklist['card_name'] == card].shape[0]
+                if card_to_score is card:
+                    #if neighborcard is card_to_score, subtract one from quantity to not include the card itself
+                    neighbor_card_quantity -= 1
+                try:
+                    #check if 'card' is used with 'card_to_score'. If not, card contributes 0 to card_to_scores' score
+                    #if a card is used once in the deck, it won't contribute to its own score
+                    score = self._cardtable.at[card_to_score, card] * neighbor_card_quantity
+                except KeyError:
+                    score = 0
+                card_score.append(score)
+            deck_score.append(sum(card_score))
+        return sum(deck_score)/len(decklist['card_name'].values.tolist())
+
+    def color_score(self, deck):
+        decklist = deck.get_decklist()
+        colors = deck.get_colors(decklist)
+        color_vector = []
+        del colors['colorless']
+        for key, value in colors.items():
+            color_vector.append(value)
+        color_vector = sorted(color_vector, reverse=True)
+        colorscore = 0
+        for i in range(2,5):
+            colorscore+=color_vector[i]
+        return -1 * colorscore
+
 
     def build_card_table(self, decks):
         cards = set()
@@ -81,7 +127,7 @@ class Fitness:
                         neighbor_quantity -= 1
                     card_table.at[card, neighbor_card] += neighbor_quantity
 
-        return card_table
+        return card_table.div(card_table.max(axis=1), axis=0)
 
     def Remove_Duplicates(self, db):
         duplicates = db[db.duplicated(subset='card_name')]
@@ -132,3 +178,119 @@ class Fitness:
             deck_code.append(collector_code.group(0))
 
         return decks
+
+def initialize_population(n, collection):
+    deck_pop = []
+    for i in range(n):
+        deck = Deck(collection)
+        deck_pop.append(deck)
+
+    return deck_pop
+
+#Takes ranked decks (deck, fitness score) and returns decks selected for mating.
+#Returns list of Decks()
+def select_pool(elitesize,  rankedPop):
+    results = []
+    scores = pd.DataFrame(data=rankedPop, columns=['deck','fitness'])
+    scores['cum_sum'] = scores['fitness'].cumsum()
+    scores['cum_perc'] = 100 * scores['cum_sum'] / scores['fitness'].sum()
+
+    for i in range(elitesize):
+        results.append(rankedPop[i][0])
+
+    for i in range(len(rankedPop)-elitesize):
+        pick = 100 * random.random()
+        for i in range(len(rankedPop)):
+            if pick <= scores.iat[i,3]:
+                results.append(rankedPop[i][0])
+                break
+
+    #Returns only decks
+    return results
+
+def breed_population(matingpool, elitesize, collection):
+    children = []
+    length = len(matingpool) - elitesize
+    pool = random.sample(matingpool, len(matingpool))
+
+    for i in range(elitesize):
+        children.append(matingpool[i])
+    for ii in range(length):
+        child = breed(pool[ii], pool[len(matingpool) - ii - 1])
+        #Turn the child decklist into a deck
+        new_deck = Deck(collection, make_deck=False)
+        new_deck.set_decklist(child)
+        children.append(new_deck)
+
+    #returns list of Decks
+    return children
+
+#Passes in two separate parent Decks, returns a single child decklist
+def breed(P1, P2):
+
+    P1decklist = P1.get_decklist()
+    P2decklist = P2.get_decklist()
+
+    P1decklist_aslist = P1decklist['card_name'].values.tolist()
+    P2decklist_aslist = P2decklist['card_name'].values.tolist()
+
+    geneA = int(random.random() * len(P1decklist_aslist))
+    geneB = int(random.random() * len(P2decklist_aslist))
+
+    size = P1decklist.shape[0]
+
+    startGene = min(geneA, geneB)
+    endGene = max(geneA, geneB)
+
+    return pd.concat([P1decklist.iloc[0 : startGene], P2decklist.iloc[startGene : endGene], P1decklist.iloc[endGene : size]])
+
+def RankPop(population, fit):
+    deck_ranks = []
+    for deck in population:
+        rank = fit.score_deck(deck)
+        deck_ranks.append(rank)
+    rankedpop = zip(population, deck_ranks)
+    rankedpop = sorted(rankedpop, key=lambda x: x[1], reverse=True)
+
+    #[Deck, Rank]
+    return rankedpop
+
+#pass in a deck and returns a mutated decklist
+def mutate(ind_deck, collection, mutationrate):
+    decklist = ind_deck.get_decklist()
+    new_decklist = decklist.copy()
+    deck_colors = ind_deck.get_colors(decklist)
+    del deck_colors['colorless']
+    deck_colors = list(deck_colors.keys())
+    old_cards = []
+    keep_cards = []
+    for index, row in decklist.iterrows():
+        if random.random() < mutationrate:
+            sentinal = True
+            while sentinal:
+                new_card = collection.sample(n=1, weights=collection['quantity'], axis=0)
+                color = new_card['color_identity'].values.tolist()[0]
+
+                if len(color) is None:
+                    sentinal = False
+                    continue
+
+                if all(elem in deck_colors for elem in color):
+                    sentinal = False
+                    continue
+            old_cards.append(index)
+            keep_cards.append(new_card)
+    new_decklist = new_decklist[~new_decklist.index.isin(old_cards)]
+    keep_cards.append(new_decklist)
+    new_decklist = pd.concat(keep_cards, ignore_index=True)
+    return new_decklist.copy()
+
+
+#Pass in list of decks. Return list of mutated decks
+def mutate_population(population, collection, mutationrate = 0.02):
+    mutated_pop = population.copy()
+    for deck in mutated_pop:
+        mutated_decklist = mutate(deck, collection, mutationrate)
+        deck.set_decklist(mutated_decklist)
+
+    return mutated_pop

@@ -24,7 +24,6 @@ class arena_db:
         self._db['mana_cost'] = self._db['mana_cost'].apply(self.extract_list)
 
 
-
     def extract_list(self, stringlist):
         if stringlist is np.NaN:
             return []
