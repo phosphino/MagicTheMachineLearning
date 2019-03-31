@@ -39,19 +39,18 @@ class arena_db:
         else:
             return []
 
-    @property
-    def arena_db_nobasiclands(self):
-        return self._db[~self._db['type_line'].str.contains('Basic Land')].reset_index(drop=True).copy()
+    
+    def Remove_BasicLands(self, odb):
+        return odb[~odb['type_line'].str.contains('Basic Land')].reset_index(drop=True).copy()
 
-    @property
-    def arena_db_nolands(self):
-        flip_lands = self._db[self._db['layout'].str.contains('transform')]
-        db = self._db[~self._db['type_line'].str.contains('Land')]
+    def Remove_Lands(self, odb):
+        flip_lands = odb[odb['layout'].str.contains('transform')]
+        db = odb[~odb['type_line'].str.contains('Land')]
         db = pd.concat([db, flip_lands], axis=0, sort=True)
 
         return db.reset_index(drop=True).copy()
 
     @property
     def arena_db(self):
-        return self._db.copy
+        return self._db.copy()
 

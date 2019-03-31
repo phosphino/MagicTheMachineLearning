@@ -32,15 +32,6 @@ class personal_collection(arena_db):
 
         return keep
 
-    def Remove_BasicLands(self, db):
-        return db[~db.name.isin(['Plains', 'Mountain', 'Island', 'Swamp', 'Forest'])]
-
-    def Remove_ManaSources(self, db):
-        flip_lands = db[db['layout'].str.contains('transform')]
-        no_lands = db[~db['type_line'].str.contains('Land')]
-        result = pd.concat([no_lands,flip_lands], ignore_index=True)
-        return result
-
     def load_completecollection(self, lines):
         card_id= []
         quantity = []
@@ -61,7 +52,7 @@ class personal_collection(arena_db):
                 quantity.append(int(quantity_result.group(1)))
         collectionlog_dict = {'arena_id':card_id, 'quantity':quantity}
         log_collection_db = pd.DataFrame(collectionlog_dict)
-        Arena_allcards = self.arena_db()
+        Arena_allcards = self.arena_db
 
         #Extracts the rows from the arena card database that correspond to cards i have by merging on the arena ids
         personal_collection = pd.merge(log_collection_db, Arena_allcards, how='inner', on=['arena_id'])
