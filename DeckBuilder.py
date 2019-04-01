@@ -63,36 +63,46 @@ class Deck:
 
 class Fitness:
     def __init__(self, collection):
+        self._collection = collection
         training_decks = self.import_decks(collection)
         self._cardtable = self.build_card_table(training_decks)
 
     def score_deck(self, deck):
-        return self.neighbor_score(deck) + self.color_score(deck)
+        neightbor_score = self.neighbor_score(deck)
+        color_score = self.color_score(deck)
+        return neightbor_score + color_score
 
 
     def neighbor_score(self, deck):
-        #To score card A, want to score it based on cards [B-Z]. How well does it synergize with its neighbors?
+
         decklist = deck.get_decklist()
         card_list=set(decklist['card_name'].values.tolist())
         deck_score = []
-        for index, row in decklist.iterrows():
-            card_to_score = row['card_name']
-            card_score = []
-            for card in card_list:
-                #check how many of neighborcard are in the deck
-                neighbor_card_quantity = decklist[decklist['card_name'] == card].shape[0]
-                if card_to_score is card:
-                    #if neighborcard is card_to_score, subtract one from quantity to not include the card itself
-                    neighbor_card_quantity -= 1
-                try:
-                    #check if 'card' is used with 'card_to_score'. If not, card contributes 0 to card_to_scores' score
-                    #if a card is used once in the deck, it won't contribute to its own score
-                    score = self._cardtable.at[card_to_score, card] * neighbor_card_quantity
-                except KeyError:
-                    score = 0
-                card_score.append(score)
-            deck_score.append(sum(card_score))
-        return sum(deck_score)/len(decklist['card_name'].values.tolist())
+
+        relevant_table = self._cardtable[self._cardtable.index.isin(list(card_list))]
+
+        if relevant_table.empty:
+            return 0
+
+        for card in card_list:
+            ind_card = decklist[decklist['card_name']==card]
+            indcard_quantity = ind_card.shape[0]
+            ind_card_maxquantity = ind_card.iloc[0]['quantity']
+            if indcard_quantity > ind_card_maxquantity:
+                return 0
+
+
+
+        for card in card_list:
+            try:
+                neighbor_table = relevant_table.loc[card]
+            except KeyError:
+                continue
+            neighbor_table = neighbor_table[neighbor_table.index.isin(card_list)]
+            duplicate_score = decklist[decklist['card_name'] == card].shape[0]
+            deck_score.append(neighbor_table.sum()**duplicate_score)
+
+        return(sum(deck_score))
 
     def color_score(self, deck):
         decklist = deck.get_decklist()
@@ -127,7 +137,7 @@ class Fitness:
                         neighbor_quantity -= 1
                     card_table.at[card, neighbor_card] += neighbor_quantity
 
-        return card_table.div(card_table.max(axis=1), axis=0)
+        return card_table.div(card_table.max(axis = 0), axis=1)
 
     def Remove_Duplicates(self, db):
         duplicates = db[db.duplicated(subset='card_name')]
@@ -189,16 +199,18 @@ def initialize_population(n, collection):
 
 #Takes ranked decks (deck, fitness score) and returns decks selected for mating.
 #Returns list of Decks()
-def select_pool(elitesize,  rankedPop):
+def select_pool(elitesize,  rankedPop, Best_Deck):
     results = []
     scores = pd.DataFrame(data=rankedPop, columns=['deck','fitness'])
     scores['cum_sum'] = scores['fitness'].cumsum()
     scores['cum_perc'] = 100 * scores['cum_sum'] / scores['fitness'].sum()
 
+    results.append(Best_Deck)
+
     for i in range(elitesize):
         results.append(rankedPop[i][0])
 
-    for i in range(len(rankedPop)-elitesize):
+    for i in range(len(rankedPop)-elitesize-1):
         pick = 100 * random.random()
         for i in range(len(rankedPop)):
             if pick <= scores.iat[i,3]:
@@ -261,7 +273,16 @@ def mutate(ind_deck, collection, mutationrate):
     new_decklist = decklist.copy()
     deck_colors = ind_deck.get_colors(decklist)
     del deck_colors['colorless']
+    ranked_deck_colors = deck_colors.items()
     deck_colors = list(deck_colors.keys())
+
+    ranked_deck_colors = sorted(ranked_deck_colors, key=lambda x: x[1], reverse=True)
+    del ranked_deck_colors[0:2]
+
+    #To speed up convergance towards to the correct color count
+    #Figure out which colors are minority. Discard any card mutations in these colors
+    minor_colors = [x[0] for x in ranked_deck_colors]
+
     old_cards = []
     keep_cards = []
     for index, row in decklist.iterrows():
@@ -272,12 +293,17 @@ def mutate(ind_deck, collection, mutationrate):
                 color = new_card['color_identity'].values.tolist()[0]
 
                 if len(color) is None:
+                    if random.random() < .5:
+                        continue
                     sentinal = False
                     continue
 
                 if all(elem in deck_colors for elem in color):
                     sentinal = False
-                    continue
+                    for c in color:
+                        if c in minor_colors:
+                            sentinal = True
+
             old_cards.append(index)
             keep_cards.append(new_card)
     new_decklist = new_decklist[~new_decklist.index.isin(old_cards)]

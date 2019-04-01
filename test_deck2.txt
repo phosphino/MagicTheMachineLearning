@@ -136,3 +136,114 @@
 4 Tithe Taker (RNA) 27
 2 Unbreakable Formation (RNA) 29
 4 Venerated Loxodon (GRN) 30
+
+2 Vanquisher's Banner (XLN) 251
+3 Legion Lieutenant (RIX) 163
+12 Swamp (RIX) 194
+12 Plains (RIX) 192
+4 Bishop's Soldier (XLN) 6
+4 Skymarch Bloodletter (XLN) 124
+1 Twilight Prophet (RIX) 88
+4 Voracious Vampire (RIX) 91
+4 Mark of the Vampire (XLN) 113
+2 Vampire's Zeal (XLN) 43
+4 Mortify (RNA) 192
+2 Duskborne Skymarcher (XLN) 9
+2 Inspiring Cleric (XLN) 16
+2 Vindictive Vampire (RNA) 90
+2 Ajani, Adversary of Tyrants (M19) 3
+
+1 Godless Shrine (RNA) 248
+1 Isolated Chapel (DAR) 241
+2 Orzhov Guildgate (RNA) 253
+1 Mentor of the Meek (M19) 27
+1 Inspiring Commander (ANA) 5
+1 Light of the Legion (GRN) 19
+1 Teysa Karlov (RNA) 212
+1 History of Benalia (DAR) 21
+4 Ministrant of Obligation (RNA) 16
+1 Make a Stand (M19) 26
+3 Call to the Feast (XLN) 219
+2 Consecrate // Consume (RNA) 224
+1 Kinjalli's Sunwing (XLN) 19
+2 Ravenous Chupacabra (RIX) 82
+2 Final Payment (RNA) 171
+4 Orzhov Enforcer (RNA) 79
+2 Rise from the Grave (M19) 117
+1 Murder (M19) 110
+4 Mortify (RNA) 192
+1 The Immortal Sun (RIX) 180
+1 Pitiless Pontiff (RNA) 194
+1 Priest of Forgotten Gods (RNA) 83
+2 Ethereal Absolution (RNA) 170
+2 Cast Down (DAR) 81
+9 Plains (DAR) 252
+9 Swamp (DAR) 258
+
+1 Judith, the Scourge Diva (RNA) 185
+16 Swamp (RIX) 194
+7 Mountain (RIX) 195
+4 Footlight Fiend (RNA) 216
+3 Priest of Forgotten Gods (RNA) 83
+1 Memorial to Folly (DAR) 242
+4 Gutterbones (RNA) 76
+4 Bladebrand (RNA) 64
+4 Reassembling Skeleton (M19) 116
+1 Dead Man's Chest (RIX) 66
+2 Orzhov Enforcer (RNA) 79
+1 Theater of Horrors (RNA) 213
+1 Captive Audience (RNA) 160
+2 Drill Bit (RNA) 73
+4 Cast Down (DAR) 81
+1 Risk Factor (GRN) 113
+2 Banefire (M19) 130
+2 Vraska's Contempt (XLN) 129
+
+4 Benthic Biomancer (RNA) 32
+4 Deeproot Elite (RIX) 127
+4 Jade Bearer (RIX) 134
+4 Kumena's Speaker (XLN) 196
+4 Kumena, Tyrant of Orazca (RIX) 162
+4 Merfolk Mistbinder (RIX) 164
+2 Merfolk Trickster (DAR) 56
+4 Silvergill Adept (RIX) 53
+4 Incubation // Incongruity (RNA) 226
+4 Deeproot Waters (XLN) 51
+4 Breeding Pool (RNA) 246
+5 Forest (GRN) 264
+4 Hinterland Harbor (DAR) 240
+5 Island (GRN) 261
+4 Unclaimed Territory (XLN) 258
+
+4 Ajani's Pridemate (M19) 5
+4 Benalish Marshal (DAR) 6
+3 Conclave Tribunal (GRN) 6
+4 Dauntless Bodyguard (DAR) 14
+4 Healer's Hawk (GRN) 14
+4 History of Benalia (DAR) 21
+4 Legion's Landing (XLN) 22
+4 Leonin Vanguard (M19) 22
+19 Plains (XLN) 263
+4 Tithe Taker (RNA) 27
+2 Unbreakable Formation (RNA) 29
+4 Venerated Loxodon (GRN) 30
+
+4 History of Benalia (DAR) 21
+9 Plains (XLN) 263
+4 Forest (XLN) 276
+2 Unbreakable Formation (RNA) 29
+1 The Immortal Sun (RIX) 180
+4 Saproling Migration (DAR) 178
+3 March of the Multitudes (GRN) 188
+3 Legion's Landing (XLN) 22
+4 Sunpetal Grove (XLN) 257
+4 Temple Garden (GRN) 258
+3 Conclave Tribunal (GRN) 6
+4 Venerated Loxodon (GRN) 30
+3 Trostani Discordant (GRN) 208
+4 Tithe Taker (RNA) 27
+1 Shalai, Voice of Plenty (DAR) 35
+2 Knight of Autumn (GRN) 183
+3 Emmara, Soul of the Accord (GRN) 168
+2 Flower // Flourish (GRN) 226
+
